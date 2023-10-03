@@ -12,6 +12,7 @@ function AddPost() {
   });
 
   const [categories, setCategories] = useState([]);
+  
 
   useEffect(() => {
     // Fetch categories from your API and populate the categories state
@@ -26,24 +27,36 @@ function AddPost() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
+  
     if (name === 'category_id') {
       // If it's the category select, split the value into an array
       const categoryValues = value.split(':');
-      setFormData({ ...formData, [name]: categoryValues });
+      // Ensure that category_id is a single integer
+      setFormData({ ...formData, [name]: parseInt(categoryValues[0]) });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Send a POST request to backend API to create a new post
-        /* axios.post('http://127.0.0.1:8000/api/post/new', formData)
+      axios.post('http://127.0.0.1:8000/api/Posts/New', formData)
       .then(response => {
         // Handle successful response (e.g., show a success message)
         console.log('New post created:', response.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Post Created',
+          html: `
+            Title: ${formData.title}<br>
+            Picture: ${formData.picture}<br>
+            Content: ${formData.content}<br>
+            Category: ${getCategoryName(formData.category_id)} <!-- Display category name -->
+          `,
+        });
 
         // Clear the form
         setFormData({
@@ -55,18 +68,17 @@ function AddPost() {
       })
       .catch(error => {
         console.error('Error creating post:', error);
-      }); */
+        Swal.fire({
+          icon: 'error',
+          title: 'Post Creation failed',
+          html: `
+          ${error}
+          Error Message: ${error.response ? error.response.data.message : 'An error occurred.'}
+          `,
+        });
+      }); 
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Post Created',
-      html: `
-        Title: ${formData.title}<br>
-        Picture: ${formData.picture}<br>
-        Content: ${formData.content}<br>
-        Category: ${formData.category_id ? formData.category_id[1] : 'N/A'} <!-- Display category name -->
-      `,
-    });
+
 
     // Clear the form
     setFormData({
@@ -75,7 +87,14 @@ function AddPost() {
       content: '',
       category_id: [], // Reset to an empty array
     });
-    console.log(formData)
+    console.log(formData);
+    //this function to get category name by its id
+    function getCategoryName(categoryId) {
+      const category = categories.find(cat => cat.id === categoryId);
+      return category ? category.name : 'N/A';
+    }
+  
+  //console.log("categoryname "+getCategoryName(formData.category_id));
   };
 
   const handleClear = (e) => {
@@ -131,18 +150,19 @@ function AddPost() {
           <select
             id="category_id"
             name="category_id"
-            value={formData.category_id.join(':')} // Combine the array into a string
+            value={formData.category_id}
             onChange={handleChange}
             required
             className="border rounded-lg p-2"
           >
             <option value="">Select a category</option>
             {categories.map(category => (
-              <option key={category.id} value={`${category.id}:${category.name}`}>
+              <option key={category.id} value={category.id}>
                 {category.name}
               </option>
             ))}
           </select>
+
         </div>
         <button type="submit" className="bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300">
           Submit
