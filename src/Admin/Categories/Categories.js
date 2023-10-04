@@ -1,4 +1,4 @@
-import AdminLayout from "../Pages/AdminLayout";
+import AdminLayout from "../../Pages/AdminLayout";
 function Categories() {
   const CategoriesContent = <div>Categories</div>;
 

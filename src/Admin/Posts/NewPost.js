@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from '../Pages/AdminLayout';
+import AdminLayout from '../../Pages/AdminLayout';
 import Swal from 'sweetalert2';
 
 function AddPost() {
@@ -59,12 +59,12 @@ function AddPost() {
         });
 
         // Clear the form
-        setFormData({
+        /* setFormData({
           title: '',
           picture: '',
           content: '',
           category_id: '', // Reset to an empty string
-        });
+        }); */
       })
       .catch(error => {
         console.error('Error creating post:', error);
@@ -81,12 +81,12 @@ function AddPost() {
 
 
     // Clear the form
-    setFormData({
+    /* setFormData({
       title: '',
       picture: '',
       content: '',
       category_id: [], // Reset to an empty array
-    });
+    }); */
     console.log(formData);
     //this function to get category name by its id
     function getCategoryName(categoryId) {

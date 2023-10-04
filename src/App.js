@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 /* import AdminLayout from "./Pages/AdminLayout"; */
-import Dashboard from "./Admin/Dashboard";
-import Posts from "./Admin/Posts";
-import Categories from "./Admin/Categories";
-import Inbox from "./Admin/Inbox";
-import Accounts from "./Admin/Accounts";
-import Add from "./Admin/NewPost";
+import Dashboard from "./Admin/Dashboard/Dashboard";
+import Posts from "./Admin/Posts/Posts";
+import Categories from "./Admin/Categories/Categories";
+import Inbox from "./Admin/Inbox/Inbox";
+import Accounts from "./Admin/Accounts/Accounts";
+import Add from "./Admin/Posts/NewPost";
 
 
 

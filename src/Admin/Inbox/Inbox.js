@@ -1,4 +1,4 @@
-import AdminLayout from "../Pages/AdminLayout";
+import AdminLayout from "../../Pages/AdminLayout";
 function Inbox() {
   const InboxContent = <div>Inbox</div>;
 

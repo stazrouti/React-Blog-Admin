@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminLayout from "../Pages/AdminLayout";
+import AdminLayout from "../../Pages/AdminLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faComments, faHeart, faEye } from "@fortawesome/free-solid-svg-icons";
 import { Line } from 'react-chartjs-2';

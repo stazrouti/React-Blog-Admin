@@ -1,4 +1,4 @@
-import AdminLayout from "../Pages/AdminLayout";
+import AdminLayout from "../../Pages/AdminLayout";
 function Accounts() {
   const AccountsContent = <div>Accounts</div>;
 
