@@ -7,19 +7,30 @@ import Categories from "./Admin/Categories/Categories";
 import Inbox from "./Admin/Inbox/Inbox";
 import Accounts from "./Admin/Accounts/Accounts";
 import Add from "./Admin/Posts/NewPost";
-
+import View from "./Admin/Posts/ViewPost";
+import UpdatePost from "./Admin/Posts/UpdatePost";
 
 
 
 function App() {
 
   return (
+    //application routes
     <BrowserRouter>
       <Routes>
       <Route path="/Admin" element={<Dashboard />} />
+      <Route path="/" element={<Dashboard />} />
+      {/* Dashboard url */}
       <Route path="/Admin/Dashboard" element={<Dashboard />} />
+      {/* get all posts */}
       <Route path="/Admin/Posts" element={<Posts />} />
+      {/* Add a new post */}
       <Route path="/Admin/Post/New" element={<Add />} />
+      {/* Update a  post */}
+      <Route path="/Admin/Posts/Update/:id" element={<UpdatePost />} />
+      {/* show post details */}
+      <Route path="/Admin/Posts/:id" element={<View />} />
+      {/* manage Categories */}
       <Route path="/Admin/Categories" element={<Categories />} />
       <Route path="/Admin/Inbox" element={<Inbox />} />
       <Route path="/Admin/Accounts" element={<Accounts />} />

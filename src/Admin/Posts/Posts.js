@@ -5,14 +5,33 @@ import { faPlus, faSearch, faFilter, faEye, faHeart, faComments, faTrash, faPen,
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
-function PostsData({ postsData, currentPage, itemsPerPage }) {
-  // Calculate the start and end index for the current page
+
+
+function PostsData({ postsData, currentPage, itemsPerPage, setPostsData }) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-
-  // Get the posts to display on the current page
   const postsToDisplay = postsData.slice(startIndex, endIndex);
+
+  const handleDelete = (postId) => {
+    axios
+      .delete(`http://127.0.0.1:8000/api/Posts/${postId}`)
+      .then((deleteResponse) => {
+      // Successful deletion, remove the post from the state
+        const updatedPostsData = postsData.filter((post) => post.id !== postId);
+        setPostsData(updatedPostsData);
+          Swal.fire('Deleted!', '', 'success');
+
+      })
+      .catch((error) => {
+        console.error('Error deleting post:', error);
+        Swal.fire('Error', 'An error occurred while deleting the post', 'error');
+      });
+  };
+  
+  
+  
 
   return (
     <div className="Border">
@@ -39,7 +58,9 @@ function PostsData({ postsData, currentPage, itemsPerPage }) {
           <div className="Border"><FontAwesomeIcon className="text-indigo-500 pr-2" icon={faHeart} />{post.likes}</div>
           <div className="Border"><FontAwesomeIcon className="text-indigo-500 pr-2" icon={faComments} />{post.comment_count}</div>
           <div className="Border"><Link to={`/Admin/Posts/${post.id}`}><FontAwesomeIcon className="text-indigo-500" icon={faEye} /></Link></div>
-          <div className="Border"><FontAwesomeIcon className="text-indigo-500" icon={faTrash} /></div>
+          <div className="Border">
+            <FontAwesomeIcon onClick={() => handleDelete(post.id)} className="text-indigo-500 hover:cursor-pointer " icon={faTrash} />
+            </div>
           <div className="Border"><Link to={`/Admin/Posts/Update/${post.id}`}><FontAwesomeIcon className="text-indigo-500" icon={faPen} /></Link></div>
         </div>
       ))}
@@ -53,6 +74,7 @@ function Posts() {
   const [postsData, setPostsData] = useState([]);
   //for search queary
   const [searchQuery, setSearchQuery] = useState("");
+  const [loading, setLoading] = useState(true); // Add loading state
 
   // Function to handle search input change
   const handleSearchChange = (e) => {
@@ -69,9 +91,11 @@ function Posts() {
       .then(response => {
         // Update the state with the received data (assuming it's an array)
         setPostsData(response.data);
+        setLoading(false); // Data has been loaded
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setLoading(false); // Data has failed
       });
   }, []);
 
@@ -80,6 +104,15 @@ function Posts() {
 
 
     const PostsContent = (<div>
+      {loading ? (
+        //loading style
+        <p>  <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
+        
+      </svg>
+      Processing...
+    </p> // Show a loading indicator or message
+    ) : (
+      <>
       <div className="flex flex-row px-10 space-x-8 items-center pt-8 justify-center gap-3 ">
         <div className="border bg-white text-xl p-2 rounded-lg shadow-md p-4 cursor-pointer">
             <Link to="/Admin/Post/New">
@@ -115,7 +148,10 @@ function Posts() {
           </select> Filter
         </div>
       </div>
-      <PostsData postsData={filteredPosts} currentPage={currentPage} itemsPerPage={itemsPerPage} />
+
+      <PostsData postsData={filteredPosts} currentPage={currentPage} itemsPerPage={itemsPerPage} setPostsData={setPostsData}  />
+      
+      
       <div className="pagination m-3 text-center">
     {/* Render the "Previous" button only if there are more than one page and it's not the first page */}
     {totalPages > 1 && currentPage > 1 && (
@@ -138,6 +174,8 @@ function Posts() {
     )}
 
       </div>
+      </>
+)}
     </div>);
   return (
     <AdminLayout Content={PostsContent} />

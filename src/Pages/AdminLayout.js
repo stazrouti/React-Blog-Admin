@@ -13,9 +13,9 @@ function AdminLayout({ Content ,children }){
                 {/* this is for the content that will be updated with link */}
                     
                 <div>
-                <main className="w-100 overflow-x-hidden overflow-y-auto ">
-                    {Content || children}
-                </main>
+                    <main className="w-100 overflow-x-hidden overflow-y-auto ">
+                        {Content || children}
+                    </main>
                 </div>
             </div>
         </div>
