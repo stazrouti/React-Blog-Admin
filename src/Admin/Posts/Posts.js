@@ -14,7 +14,7 @@ function PostsData({ postsData, currentPage, itemsPerPage, setPostsData }) {
   const endIndex = startIndex + itemsPerPage;
   const postsToDisplay = postsData.slice(startIndex, endIndex);
 
-  const handleDelete = (postId) => {
+/*   const handleDelete = (postId) => {
     axios
       .delete(`http://127.0.0.1:8000/api/Posts/${postId}`)
       .then((deleteResponse) => {
@@ -28,7 +28,55 @@ function PostsData({ postsData, currentPage, itemsPerPage, setPostsData }) {
         console.error('Error deleting post:', error);
         Swal.fire('Error', 'An error occurred while deleting the post', 'error');
       });
-  };
+  }; */
+const handleDelete = (postId) => {
+
+  // Fetch post details first
+  axios
+  .get(`http://127.0.0.1:8000/api/Posts/${postId}`)
+  .then((response) => {
+    const postData = response.data;
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Are you sure you want to delete this post definitely?',
+      html: `
+        <div>ID: ${postData.id}</div>
+        <div>picture: <img  style="width:200px;height:100px" src="${postData.picture}"/></div>
+        <div>Title: ${postData.title}</div>
+        <div>Created At: ${postData.created_at}</div>
+      `,
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      confirmButtonColor: '#F53D65',
+      denyButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://127.0.0.1:8000/api/Posts/${postId}`)
+          .then((deleteResponse) => {
+            
+              // Successful deletion, remove the post from the state
+              const updatedPostsData = postsData.filter((post) => post.id !== postId);
+              setPostsData(updatedPostsData);
+              Swal.fire('Deleted!', '', 'success');
+              // Successful deletion, you can navigate to a different page or update the UI as needed.
+            
+          })
+          .catch((error) => {
+            console.error('Error deleting post:', error);
+            Swal.fire('Error', 'An error occurred while deleting the post', 'error');
+          });
+      } else if (result.isDenied) {
+        Swal.fire('Cancelled', '', 'info');
+      }
+    });
+  })
+  .catch((error) => {
+    console.error('Error fetching post details:', error);
+  });
+};
   
   
   

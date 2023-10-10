@@ -55,6 +55,9 @@ function Getpost({ postId }) {
           <div className="mt-2 mb-2 max-w-2xl">
             <span className="text-gray-600">Likes : </span> {postData.likes}
           </div>
+          <div className="mt-2 mb-2 max-w-2xl">
+            <span className="text-gray-600">Category : </span> {postData.category}
+          </div>
           <div className="mt-2 mb-2 max-w-2xl">{postData.content}</div>
           {/* check if comments are available on this post */}
           {postData.comments.length ===0 ? 
