@@ -146,6 +146,27 @@ function Posts() {
         setLoading(false); // Data has failed
       });
   }, []);
+  const [selectedSort, setSelectedSort] = useState("default"); 
+  //filter posts
+  const handelFilter=(e)=>{
+    // Apply sorting based on the selected option
+    if (selectedSort === 'default') {
+      // Reset the sorting to the default order
+      setPostsData([...postsData]);
+    }else if (selectedSort === "newest") {
+      const sortedPosts = [...postsData].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      setPostsData(sortedPosts);
+    } else if (selectedSort === "oldest") {
+      const sortedPosts = [...postsData].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+      setPostsData(sortedPosts);
+    } else if (selectedSort === "likes") {
+      const sortedPosts = [...postsData].sort((a, b) => b.likes - a.likes);
+      setPostsData(sortedPosts);
+    } else if (selectedSort === "comments") {
+      const sortedPosts = [...postsData].sort((a, b) => b.comment_count - a.comment_count);
+      setPostsData(sortedPosts);
+    }
+  }
 
   /* const totalPages = Math.ceil(postsData.length / itemsPerPage); */
   const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
@@ -189,11 +210,13 @@ function Posts() {
         </div>
         <div className="border bg-white text-xl p-2 rounded-lg shadow-md p-4 cursor-pointer">
           <span className="text-indigo-500 p-4"><FontAwesomeIcon icon={faFilter} /></span>
-          <select>
-            <option>Date</option>
-            <option>Likes</option>
-            <option>Comments</option>
-          </select> Filter
+          <select value={selectedSort} onChange={(e) => setSelectedSort(e.target.value)}>
+            <option value="default">Default</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+            <option value="likes">Likes</option>
+            <option value="comments">Comments</option>
+          </select> <span onClick={handelFilter}>Filter</span>
         </div>
       </div>
 
