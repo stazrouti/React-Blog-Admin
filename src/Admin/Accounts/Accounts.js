@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminLayout from '../../Pages/AdminLayout';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash,faPen,faEye,faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPen, faEye, faTimes } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 function UserAccountManager({ user, onUpdate, onDelete }) {
   const [updating, setUpdating] = useState(false);
@@ -10,7 +11,8 @@ function UserAccountManager({ user, onUpdate, onDelete }) {
 
   const handleUpdate = () => {
     // Make an API call to update the user data
-    axios.put(`http://your-api-url/users/${user.id}`, updatedUser) // Replace with your actual API endpoint
+    axios
+      .put(`http://127.0.0.1:8000/Users/${user.id}`, updatedUser) // Replace with your actual API endpoint
       .then(response => {
         onUpdate(response.data);
         setUpdating(false);
@@ -22,48 +24,58 @@ function UserAccountManager({ user, onUpdate, onDelete }) {
   };
 
   const handleDelete = () => {
-    // Make an API call to delete the user account
-    axios.delete(`http://your-api-url/users/${user.id}`) // Replace with your actual API endpoint
-      .then(() => {
+    Swal.fire({
+      title: 'Are you sure you want to delete this user account?',
+      icon: 'warning',
+      html: `
+        <p><b>Username</b>: ${user.name}</p>
+        <p><b>Email</b>: ${user.email}</p>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        return axios
+          .delete(`http://127.0.0.1:8000/api/Users/${user.id}`)
+          .then((response) => {
+            if (response.status === 200) {
+              return response.data;
+            } else {
+              throw new Error(response.data.message.error);
+            }
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(error.response.data.error ? error.response.data.error : error.response.data.message);
+          });
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
         onDelete(user.id);
-        console.log('User account deleted successfully');
-      })
-      .catch(error => {
-        console.error('Error deleting user account:', error);
-      });
+        Swal.fire('User Deleted', 'The account has been deleted.', 'success');
+      }
+    });
   };
 
   return (
-    <div className="">
-      {/* <h1 className="text-2xl font-bold mb-4">User Account</h1> */}
-
-      <div className="flex shadow-md flex-row space-x-8 items-center p-2 mb-2 justify-center gap-9 rounded-lg ml-10 bg-white">
-        {/* <div className="flex-none w-10">
-          <img className="" alt="img" src="" />
-        </div> */}
-        <div className="flex-grow w-40">
-          <div className="truncate border">{user.name}</div>
-        </div>
-        <div className="flex-none w-25">
-          <div>{user.email}</div>
-        </div>
-        {/* <div className="flex-none w-25">
-          <div>{user.email_verified_at!==null?user.email_verified_at:<FontAwesomeIcon className='text-red-600' icon={faXmark} />}</div>
-        </div> */}
-        <div className="flex-none w-25">
-          <div>{user.created_at}</div>
-        </div>
-        <div className="flex-none">
+    <>
+      <tr className="shadow-md items-center p-2 mb-2 justify-center gap-9 rounded-lg ml-10 bg-white">
+        <td className="border p-2">{user.name}</td>
+        <td className="border p-2">{user.email}</td>
+        <td className="border p-2">
+          {user.email_verified_at !== null ? user.email_verified_at : <FontAwesomeIcon className='text-red-600' icon={faTimes} />}
+        </td>
+        <td className="border p-2">{user.created_at}</td>
+        <td className="border p-2">
           <FontAwesomeIcon className="text-indigo-500" icon={faEye} />
-        </div>
-        <div className="flex-none">
+        </td>
+        <td className="border p-2">
           <FontAwesomeIcon onClick={handleDelete} className="text-indigo-500 hover:cursor-pointer" icon={faTrash} />
-        </div>
-        <div className="flex-none">
+        </td>
+        <td className="border p-2">
           <FontAwesomeIcon onClick={() => setUpdating(true)} className="text-indigo-500" icon={faPen} />
-        </div>
-      </div>
-
+        </td>
+      </tr>
 
       {updating && (
         <div>
@@ -90,7 +102,7 @@ function UserAccountManager({ user, onUpdate, onDelete }) {
           </button>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -99,8 +111,8 @@ function Accounts() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch user data from the backend when the component mounts
-    axios.get('http://127.0.0.1:8000/api/Users') // Replace with your actual API endpoint
+    axios
+      .get('http://127.0.0.1:8000/api/Users')
       .then(response => {
         setUsersData(response.data);
         setLoading(false);
@@ -126,34 +138,37 @@ function Accounts() {
       <div className="container mx-auto mt-8 px-10 bg-white ml-5 pb-4">
         <div className="max-w-screen-lg">
           <h1 className="text-3xl font-bold mb-4">User Accounts</h1>
-          {loading ? (
-            <p>Loading user data...</p>
-          ) : (
-            usersData.map(user => (
-              <UserAccountManager
-                key={user.id}
-                user={user}
-                onUpdate={updateUser}
-                onDelete={deleteUser}
-              />
-            ))
-          )}
+          <table className="min-w-full">
+            <thead>
+              <tr>
+                <th className="border p-2 pl-3 pr-5">Username</th>
+                <th className="border p-2 pl-3 pr-5">Email</th>
+                <th className="border p-2 pl-3 pr-5">Verification</th>
+                <th className="border p-2 pl-3 pr-5">Join date</th>
+                <th className="border p-2 pl-3 pr-5">View</th>
+                <th className="border p-2 pl-3 pr-5">Delete</th>
+                <th className="border p-2 pl-3 pr-5">Modify</th>
+              </tr>
+            </thead>
+            <tbody className='text-center'>
+              {loading ? (
+                <p>Loading user data...</p>
+              ) : (
+                usersData.map(user => (
+                  <UserAccountManager
+                    key={user.id}
+                    user={user}
+                    onUpdate={updateUser}
+                    onDelete={deleteUser}
+                  />
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </AdminLayout>
   );
 }
 
-
-
-
-
-
-/* function Accounts() {
-  //const AccountsContent = <div className="container mx-auto mt-8 px-10 bg-white ml-5 " ><div className="max-w-screen-lg"></div>Accounts</div>;
-
-  return (
-    <AdminLayout Content={<UserAccountManager/>} />
-  );
-} */
 export default Accounts;
