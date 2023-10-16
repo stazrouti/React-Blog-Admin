@@ -25,37 +25,7 @@ function AnalyticsCard({ title, value, icon }) {
   );
 }
 
-/* chart Analytics component */
-function Analytics() {
-  // Sample data for Line Chart
-  const chartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','July','Oct','Nov','Dec'],
-    datasets: [
-      {
-        label: 'Views',
-        data: [12, 29, 3, 5, 2, 3],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 2,
-        fill: false,
-      },
-    ],
-  };
 
-  // Explicitly specify the scale as CategoryScale
-  const scales = {
-    x: {
-      type: 'category',
-    },
-  };
-
-  return (
-    <div className="bg-white rounded-lg shadow-md p-4 mr-10 ml-10 mt-5 ">
-      <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
-      {/* Display a Line Chart with specified scales */}
-      <Line data={chartData} options={{ scales }} />
-    </div>
-  );
-}
 /* some changes */
 /* the main function that display dashbord data */
 function Dashboard() {
@@ -63,6 +33,9 @@ function Dashboard() {
     TotalPosts: 0,
     TotalComments: 0,
     TotalLikes: 0,
+    Totalvisits: 0,
+    MonthlyVisits: [],
+    MonthlyPosts: [],
   });
 
   useEffect(() => {
@@ -84,15 +57,121 @@ function Dashboard() {
             <AnalyticsCard title="Total Posts" value={dashboardData.TotalPosts} icon={faFileAlt} />
             <AnalyticsCard title="Total Comments" value={dashboardData.TotalComment} icon={faComments} />
             <AnalyticsCard title="Likes Received" value={dashboardData.TotalLikes} icon={faHeart} />
-            <AnalyticsCard title="Views" value="1205" icon={faEye} />
+            <AnalyticsCard title="Total Visits" value={dashboardData.TotalVisits} icon={faEye} />
           </div>
         </div>
       </div>
-      <Analytics />
+      <Analytics Visits={dashboardData.MonthlyVisits} Posts={dashboardData.MonthlyPosts} Comments={dashboardData.MonthlyComments} Likes={dashboardData.MonthlyLikes}/>
     </>;
   return (
     <AdminLayout Content={dashboardContent} />
 
+  );
+}
+/* chart Analytics component */
+function Analytics({Visits,Posts,Comments}) {
+  const MonthlyVisits=Visits;
+  const MonthlyPosts=Posts;
+  const MonthlyComments=Comments;
+  
+  //console.log("month 1",MonthlyVisits[0].visit_count);
+  //console.log("Month 1 visit count:", MonthlyVisits[0].visit_count);
+  if (MonthlyVisits.length === 0) {
+    return (
+      <div className="bg-white rounded-lg shadow-md p-4 mr-10 ml-10 mt-5">
+        <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
+        <p>Loading data...</p>
+      </div>
+    );
+  }  
+  console.log("month data",MonthlyVisits);
+
+  // Sample data for Line Chart
+  const orderedMonths = [
+    'January', 'February', 'March', 'April','May','June',
+    'July', 'August','September', 'October', 'November', 'December'
+  ];
+  
+  const postCounts = new Array(12).fill(0);
+  const commentCounts = new Array(12).fill(0);
+  
+  
+  MonthlyPosts.forEach(item => {
+    const monthIndex = orderedMonths.indexOf(item.month);
+    if (monthIndex !== -1) {
+      postCounts[monthIndex] = item.post_count;
+    }
+  });
+  MonthlyComments.forEach(item => {
+    const monthIndex = orderedMonths.indexOf(item.month);
+    if (monthIndex !== -1) {
+      commentCounts[monthIndex] = item.comment_count; // Use item.comment_count
+    }
+  });
+
+  
+  const chartData = {
+    labels: orderedMonths,
+    datasets: [
+      {
+        label: 'Visits',
+        data: MonthlyVisits.map(item => item.visit_count),
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Posts',
+        data: postCounts,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Comments',
+        data: commentCounts,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+      
+    ],
+
+  };
+  
+  
+  // You will need to replace "item.visit_count2" and the color accordingly with your second dataset.
+  
+
+
+
+/*   const chartData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','July','Oct','Nov','Dec'],
+    datasets: [
+      {
+        label: 'Views',
+        data: [MonthlyVisits[0].visit_count, 29, 3, 5, 2, 3],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+    ],
+  }; */
+
+  // Explicitly specify the scale as CategoryScale
+  const scales = {
+    x: {
+      type: 'category',
+    },
+  };
+ 
+  return (
+    <div className="bg-white rounded-lg shadow-md p-4 mr-10 ml-10 mt-5 ">
+      <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
+      {/* Display a Line Chart with specified scales */}
+      <Line data={chartData} options={{ scales }} />
+      {/* <Line data={chartData2} options={{ scales }} /> */}
+    </div>
   );
 }
 
