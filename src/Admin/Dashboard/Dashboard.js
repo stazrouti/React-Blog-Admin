@@ -1,7 +1,7 @@
 import React from 'react';
 import AdminLayout from "../../Pages/AdminLayout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFileAlt, faComments, faHeart, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faFileAlt, faComments, faHeart, faEye, faUserCheck, faUser, faFolder } from "@fortawesome/free-solid-svg-icons";
 import { Line } from 'react-chartjs-2';
 import { CategoryScale } from "chart.js"; // Import the CategoryScale
 import Chart from 'chart.js/auto';
@@ -34,6 +34,9 @@ function Dashboard() {
     TotalComments: 0,
     TotalLikes: 0,
     Totalvisits: 0,
+    TotalCategories:0,
+    TotalUsers: 0,
+    ActifUSers: 0,
     MonthlyVisits: [],
     MonthlyPosts: [],
   });
@@ -58,6 +61,9 @@ function Dashboard() {
             <AnalyticsCard title="Total Comments" value={dashboardData.TotalComment} icon={faComments} />
             <AnalyticsCard title="Likes Received" value={dashboardData.TotalLikes} icon={faHeart} />
             <AnalyticsCard title="Total Visits" value={dashboardData.TotalVisits} icon={faEye} />
+            <AnalyticsCard title="Total Categories" value={dashboardData.TotalCategories} icon={faFolder} />
+            <AnalyticsCard title="Total Users" value={dashboardData.TotalUsers} icon={faUser} />
+            <AnalyticsCard title="Actif Users" value={dashboardData.ActifUsers} icon={faUserCheck} />
           </div>
         </div>
       </div>
@@ -166,7 +172,7 @@ function Analytics({Visits,Posts,Comments}) {
   };
  
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mr-10 ml-10 mt-5 ">
+    <div className="bg-white rounded-lg shadow-md p-4 mr-10 ml-10 mt-5 mb-5">
       <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
       {/* Display a Line Chart with specified scales */}
       <Line data={chartData} options={{ scales }} />

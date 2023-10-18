@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-/* import AdminLayout from "./Pages/AdminLayout"; */
 import Dashboard from "./Admin/Dashboard/Dashboard";
 import Posts from "./Admin/Posts/Posts";
 import Categories from "./Admin/Categories/Categories";
@@ -9,6 +8,7 @@ import Accounts from "./Admin/Accounts/Accounts";
 import Add from "./Admin/Posts/NewPost";
 import View from "./Admin/Posts/ViewPost";
 import UpdatePost from "./Admin/Posts/UpdatePost";
+import ViewMessage from "./Admin/Inbox/ViewMessage";
 
 
 
@@ -33,6 +33,8 @@ function App() {
       {/* manage Categories */}
       <Route path="/Admin/Categories" element={<Categories />} />
       <Route path="/Admin/Inbox" element={<Inbox />} />
+      <Route path="/Admin/Inbox/:id" element={<ViewMessage />} />
+
       <Route path="/Admin/Accounts" element={<Accounts />} />
         
       </Routes>
