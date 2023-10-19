@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import AdminLayout from '../../Pages/AdminLayout';
+import AdminLayout from '../../layouts/AdminLayout';
 
 function ViewMessage() {
   const location = useLocation();

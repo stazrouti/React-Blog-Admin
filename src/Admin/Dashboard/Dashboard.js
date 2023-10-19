@@ -1,5 +1,6 @@
 import React from 'react';
-import AdminLayout from "../../Pages/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
+import Domain from '../../Api/Api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faComments, faHeart, faEye, faUserCheck, faUser, faFolder } from "@fortawesome/free-solid-svg-icons";
 import { Line } from 'react-chartjs-2';
@@ -43,7 +44,7 @@ function Dashboard() {
 
   useEffect(() => {
     // Make an HTTP GET request to the Laravel API URL
-    axios.get('http://127.0.0.1:8000/api/Dashboard')
+    axios.get(`${Domain()}/Dashboard`)
       .then(response => {
         // Update the state with the received data
         setDashboardData(response.data);

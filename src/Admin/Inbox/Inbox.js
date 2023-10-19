@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from '../../Pages/AdminLayout';
+import AdminLayout from '../../layouts/AdminLayout';
+import Domain from '../../Api/Api';
 import ViewMessage from './ViewMessage';
 import Swal from 'sweetalert2';
 import { faTrash,faEye } from '@fortawesome/free-solid-svg-icons'; 
@@ -30,7 +31,7 @@ function ContactMessage({ message, onDelete }) {
       showLoaderOnConfirm: true,
       preConfirm: () => {
         return axios
-          .delete(`http://127.0.0.1:8000/api/Contact/${message.id}`)
+          .delete(`${Domain()}/Contact/${message.id}`)
           .then((response) => {
             if (response.status === 200) {
               return response.data;
@@ -64,7 +65,7 @@ function ContactMessage({ message, onDelete }) {
     return <Link to={url}></Link>; */
     setRead(true);
     axios
-    .put(`http://127.0.0.1:8000/api/Contact/Read/${message.id}`, {
+    .put(`${Domain()}/Contact/Read/${message.id}`, {
       read: true,
     })
     .then((response) => {
@@ -122,7 +123,7 @@ function Inbox() {
 
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/api/Contact')
+      .get(`${Domain()}/Contact`)
       .then((response) => {
         setMessages(response.data);
         setLoading(false);

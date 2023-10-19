@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import AdminLayout from "../../Pages/AdminLayout";
+import AdminLayout from "../../layouts/AdminLayout";
+import Domain from "../../Api/Api";
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,7 +23,7 @@ function Getpost({ postId }) {
 
   useEffect(() => {
     // Make an API GET request to retrieve the post by postId
-    axios.get(`http://127.0.0.1:8000/api/Posts/${postId}`)
+    axios.get(`${Domain()}/Posts/${postId}`)
       .then(response => {
         // Update the state with the received data
         setPostData(response.data);
@@ -68,7 +69,7 @@ function Getpost({ postId }) {
         if (result.isConfirmed) {
           // Make an API call to delete the comment here
           axios
-            .delete(`http://127.0.0.1:8000/api/Comment/${id}`)
+            .delete(`${Domain()}/Comment/${id}`)
             .then((response) => {
               if (response.status === 200) {
                 // Create a new object with updated comments by filtering out the deleted comment

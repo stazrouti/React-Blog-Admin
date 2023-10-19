@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import AdminLayout from '../../Pages/AdminLayout';
+import AdminLayout from '../../layouts/AdminLayout';
+import Domain from '../../Api/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPen, faEye, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
@@ -35,7 +36,7 @@ function UserAccountManager({ user, onUpdate, onDelete }) {
         showLoaderOnConfirm: true,
         preConfirm: () => {
           return axios
-            .put(`http://127.0.0.1:8000/api/Users/${user.id}`,updatedUser)
+            .put(`${Domain}/Users/${user.id}`,updatedUser)
             .then((response) => {
               if (response.status === 200) {
                 onUpdate(response.data);

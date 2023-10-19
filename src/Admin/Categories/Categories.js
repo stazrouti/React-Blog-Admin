@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AdminLayout from '../../Pages/AdminLayout';
+import AdminLayout from '../../layouts/AdminLayout';
+import Domain from '../../Api/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -11,7 +12,7 @@ function Categories() {
 //get all categories
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/api/Categories')
+      .get(`${Domain()}/Categories`)
       .then((response) => {
         setCategoriesData(response.data);
         setLoading(false);
@@ -37,7 +38,7 @@ function Categories() {
   
         // You can handle form submission here (e.g., make an API call to add the category)
         return axios
-          .post('http://127.0.0.1:8000/api/Categories', {
+          .post(`${Domain()}/Categories`, {
             categoryName: categoryName,
             categoryDescription: categoryDescription,
           })
@@ -85,7 +86,7 @@ function Categories() {
         // Make an API call to delete the category here
         // You can use axios or any other method for the API call
         return axios
-          .delete(`http://127.0.0.1:8000/api/Categories/${category.id}`)
+          .delete(`${Domain()}/Categories/${category.id}`)
           .then((response) => {
             if (response.status === 200) {
               const lastId = category.id;
@@ -135,7 +136,7 @@ function Categories() {
         const updatedName = document.getElementById('swal-input1').value;
         const updatedDescription = document.getElementById('swal-input2').value;
         return axios
-        .put(`http://127.0.0.1:8000/api/Categories/${category.id}`,{Name:updatedName,Description:updatedDescription})
+        .put(`${Domain()}/Categories/${category.id}`,{Name:updatedName,Description:updatedDescription})
         .then((response) => {
           if (response.status === 200) {
             const lastId=category.id;
