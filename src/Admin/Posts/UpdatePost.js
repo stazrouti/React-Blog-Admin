@@ -3,6 +3,8 @@ import axios from "axios";
 import { useState, useEffect, } from "react";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import Domain from "../../Api/Api";
+import { AuthToken } from "../../Api/Api";
 
 function Getpost() {
     // Get the value of the "id" parameter from the URL
@@ -20,7 +22,10 @@ function Getpost() {
   
     useEffect(() => {
       axios
-        .get(`http://127.0.0.1:8000/api/Posts/${postId}`)
+        .get(`${Domain()}/Posts/${postId}`,{
+          headers: {
+            'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+          }})
         .then((response) => {
           setPostData(response.data);
   
@@ -83,7 +88,10 @@ function Getpost() {
           }).then((result) => {
             if (result.isConfirmed) {
               axios
-                .put(`http://127.0.0.1:8000/api/Posts/${postId}`,formData)
+                .put(`http://127.0.0.1:8000/api/Posts/${postId}`,formData,{
+                  headers: {
+                    'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+                  }})
                 .then((updateResponse) => {
                   
                     // Successful deletion, remove the post from the state

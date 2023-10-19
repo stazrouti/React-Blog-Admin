@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./App.css";
+import Login from "./Login/Login";
 import Dashboard from "./Admin/Dashboard/Dashboard";
 import Posts from "./Admin/Posts/Posts";
 import Categories from "./Admin/Categories/Categories";
@@ -12,30 +14,57 @@ import ViewMessage from "./Admin/Inbox/ViewMessage";
 
 
 
+
 function App() {
+  const isAuthenticated = localStorage.getItem('authToken');
+  const Redirect =<Navigate to="/Login" />;
 
   return (
     //application routes
     <BrowserRouter>
       <Routes>
-      <Route path="/Admin" element={<Dashboard />} />
-      <Route path="/" element={<Dashboard />} />
-      {/* Dashboard url */}
-      <Route path="/Admin/Dashboard" element={<Dashboard />} />
-      {/* get all posts */}
-      <Route path="/Admin/Posts" element={<Posts />} />
-      {/* Add a new post */}
-      <Route path="/Admin/Post/New" element={<Add />} />
-      {/* Update a  post */}
-      <Route path="/Admin/Posts/Update/:id" element={<UpdatePost />} />
-      {/* show post details */}
-      <Route path="/Admin/Posts/:id" element={<View />} />
-      {/* manage Categories */}
-      <Route path="/Admin/Categories" element={<Categories />} />
-      <Route path="/Admin/Inbox" element={<Inbox />} />
-      <Route path="/Admin/Inbox/:id" element={<ViewMessage />} />
+      <Route path="/Login" element={<Login />} />
+        <Route path="/" element={isAuthenticated?<Dashboard/>:Redirect} />
 
-      <Route path="/Admin/Accounts" element={<Accounts />} />
+        <Route path="/Admin" element={isAuthenticated ? <Dashboard/> : Redirect} />
+        {/* Dashboard url */}
+        <Route path="/Admin/Dashboard" element={isAuthenticated ? <Dashboard/> : Redirect}/>
+        
+        {/* get all posts */}
+        <Route path="/Admin/Posts" element={isAuthenticated ? <Posts/> : Redirect} />
+        {/* Add a new post */}
+        <Route path="/Admin/Post/New" element={isAuthenticated ? <Add/> : Redirect} />
+        {/* Update a  post */}
+        <Route path="/Admin/Posts/Update/:id" element={isAuthenticated ? <UpdatePost/> : Redirect} />
+        {/* show post details */}
+        <Route path="/Admin/Posts/:id" element={isAuthenticated ? <View/> : Redirect} />
+        {/* manage Categories */}
+        <Route path="/Admin/Categories" element={isAuthenticated ? <Categories/> : Redirect} />
+        <Route path="/Admin/Inbox" element={isAuthenticated ? <Inbox/> : Redirect} />
+        <Route path="/Admin/Inbox/:id" element={isAuthenticated ? <ViewMessage/> : Redirect} />
+
+        <Route path="/Admin/Accounts" element={isAuthenticated ? <Accounts/> : Redirect} />
+      
+        {/* {isAuthenticated ? <ProtectedRoutes/>:<Route path="/Login" element={<Login />} />} */}
+{/*         <Route path="/Login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/Admin" element={<Dashboard />} />
+        
+        <Route path="/Admin/Dashboard" element={<Dashboard />} />
+        
+        <Route path="/Admin/Posts" element={<Posts />} />
+        
+        <Route path="/Admin/Post/New" element={<Add />} />
+        
+        <Route path="/Admin/Posts/Update/:id" element={<UpdatePost />} />
+        
+        <Route path="/Admin/Posts/:id" element={<View />} />
+        
+        <Route path="/Admin/Categories" element={<Categories />} />
+        <Route path="/Admin/Inbox" element={<Inbox />} />
+        <Route path="/Admin/Inbox/:id" element={<ViewMessage />} />
+
+        <Route path="/Admin/Accounts" element={<Accounts />} /> */}
         
       </Routes>
     </BrowserRouter>

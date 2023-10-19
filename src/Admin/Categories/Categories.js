@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
 import Domain from '../../Api/Api';
+import { AuthToken } from '../../Api/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
@@ -12,7 +13,10 @@ function Categories() {
 //get all categories
   useEffect(() => {
     axios
-      .get(`${Domain()}/Categories`)
+      .get(`${Domain()}/Categories`,{
+        headers: {
+          'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+        }})
       .then((response) => {
         setCategoriesData(response.data);
         setLoading(false);
@@ -41,7 +45,10 @@ function Categories() {
           .post(`${Domain()}/Categories`, {
             categoryName: categoryName,
             categoryDescription: categoryDescription,
-          })
+          },{
+            headers: {
+              'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+            }})
           .then((response) => {
             if (response.status === 200) {
               // Update the state with the new category
@@ -86,7 +93,10 @@ function Categories() {
         // Make an API call to delete the category here
         // You can use axios or any other method for the API call
         return axios
-          .delete(`${Domain()}/Categories/${category.id}`)
+          .delete(`${Domain()}/Categories/${category.id}`,{
+            headers: {
+              'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+            }})
           .then((response) => {
             if (response.status === 200) {
               const lastId = category.id;
@@ -135,8 +145,18 @@ function Categories() {
         // Retrieve the updated values from the input fields
         const updatedName = document.getElementById('swal-input1').value;
         const updatedDescription = document.getElementById('swal-input2').value;
-        return axios
-        .put(`${Domain()}/Categories/${category.id}`,{Name:updatedName,Description:updatedDescription})
+        return axios.put
+        (`${Domain()}/Categories/${category.id}`,
+        {
+          Name: updatedName,
+          Description: updatedDescription
+        },
+        {
+          headers: {
+            'Authorization': 'Bearer ' + AuthToken() // Include the token here
+          }
+        }
+      )
         .then((response) => {
           if (response.status === 200) {
             const lastId=category.id;

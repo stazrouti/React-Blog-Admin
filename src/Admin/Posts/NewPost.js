@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminLayout from '../../layouts/AdminLayout';
 import Domain from '../../Api/Api';
+import { AuthToken } from '../../Api/Api';
 import Swal from 'sweetalert2';
 
 function AddPost() {
@@ -17,7 +18,10 @@ function AddPost() {
 
   useEffect(() => {
     // Fetch categories from your API and populate the categories state
-    axios.get(`${Domain()}/Categories`)
+    axios.get(`${Domain()}/Categories`,{
+      headers: {
+        'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+      }})
       .then(response => {
         setCategories(response.data);
       })
@@ -44,7 +48,10 @@ function AddPost() {
     e.preventDefault();
 
     // Send a POST request to backend API to create a new post
-      axios.post(`${Domain()}/Posts/New`, formData)
+      axios.post(`${Domain()}/Posts/New`, formData,{
+        headers: {
+          'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+        }})
       .then(response => {
         // Handle successful response (e.g., show a success message)
         console.log('New post created:', response.data);

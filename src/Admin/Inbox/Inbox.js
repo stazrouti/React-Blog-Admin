@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminLayout from '../../layouts/AdminLayout';
 import Domain from '../../Api/Api';
+import { AuthToken } from '../../Api/Api';
 import ViewMessage from './ViewMessage';
 import Swal from 'sweetalert2';
 import { faTrash,faEye } from '@fortawesome/free-solid-svg-icons'; 
@@ -31,7 +32,10 @@ function ContactMessage({ message, onDelete }) {
       showLoaderOnConfirm: true,
       preConfirm: () => {
         return axios
-          .delete(`${Domain()}/Contact/${message.id}`)
+          .delete(`${Domain()}/Contact/${message.id}`,{
+            headers: {
+              'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+            }})
           .then((response) => {
             if (response.status === 200) {
               return response.data;
@@ -67,20 +71,30 @@ function ContactMessage({ message, onDelete }) {
     axios
     .put(`${Domain()}/Contact/Read/${message.id}`, {
       read: true,
-    })
+    },{
+      headers: {
+        'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+      }}
+    )
     .then((response) => {
       // Handle the server response as needed
       console.log(response.data)
+      // Update the message.read property
+      message.read = true;
+      setSelectedMessage(message);
+
+      
     })
     .catch((error) => {
       // Handle errors
       console.log(error)
-
+      
     });
+    
+
+    /* Navigate(`/Inbox/${message.id}?name=${message.name}&email=${message.email}&subject=${message.subject}&date=${message.date}`); */
 
   setSelectedMessage(message);
-    
-    setSelectedMessage(message);
   };
   const closeMessage = () => {
     setSelectedMessage(null);
@@ -90,7 +104,7 @@ function ContactMessage({ message, onDelete }) {
   return (
     <tr
       className={` items-center p-2 mb-2 mt-2 justify-center gap-9 rounded-lg ml-10 hover:shadow-md hover:bg-gray-200 cursor-pointer ${
-        message.read ? 'bg-white' : 'bg-gray-100'
+        message.read || read ? 'bg-white' : 'bg-gray-100'
 
       }`}
       onClick={() => handleOpenMessage(message)} // Handle click event to open the message
@@ -123,7 +137,10 @@ function Inbox() {
 
   useEffect(() => {
     axios
-      .get(`${Domain()}/Contact`)
+      .get(`${Domain()}/Contact`,{
+        headers: {
+          'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+        }})
       .then((response) => {
         setMessages(response.data);
         setLoading(false);

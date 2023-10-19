@@ -1,5 +1,6 @@
 import AdminLayout from "../../layouts/AdminLayout";
 import Domain from "../../Api/Api";
+import { AuthToken } from "../../Api/Api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faSearch, faFilter, faEye, faHeart, faComments, faTrash, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -34,7 +35,10 @@ const handleDelete = (postId) => {
 
   // Fetch post details first
   axios
-  .get(`${Domain()}/Posts/${postId}`)
+  .get(`${Domain()}/Posts/${postId}`,{
+    headers: {
+      'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+    }})
   .then((response) => {
     const postData = response.data;
 
@@ -55,7 +59,10 @@ const handleDelete = (postId) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${Domain()}/Posts/${postId}`)
+          .delete(`${Domain()}/Posts/${postId}`,{
+            headers: {
+              'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+            }})
           .then((deleteResponse) => {
             
               // Successful deletion, remove the post from the state
@@ -136,7 +143,10 @@ function Posts() {
 
   useEffect(() => {
     // Make an API GET request to retrieve all posts
-    axios.get(`${Domain()}/Posts`)
+    axios.get(`${Domain()}/Posts`,{
+      headers: {
+        'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+      }})
       .then(response => {
         // Update the state with the received data (assuming it's an array)
         setPostsData(response.data);

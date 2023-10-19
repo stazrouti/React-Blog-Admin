@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminLayout from "../../layouts/AdminLayout";
 import Domain from '../../Api/Api';
+import { AuthToken } from '../../Api/Api';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileAlt, faComments, faHeart, faEye, faUserCheck, faUser, faFolder } from "@fortawesome/free-solid-svg-icons";
 import { Line } from 'react-chartjs-2';
@@ -43,8 +44,12 @@ function Dashboard() {
   });
 
   useEffect(() => {
+    /* const authToken = localStorage.getItem('authToken'); */
     // Make an HTTP GET request to the Laravel API URL
-    axios.get(`${Domain()}/Dashboard`)
+    axios.get(`${Domain()}/Dashboard`,{
+      headers: {
+        'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+      }})
       .then(response => {
         // Update the state with the received data
         setDashboardData(response.data);
