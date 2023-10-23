@@ -24,7 +24,10 @@ function Getpost({ postId }) {
 
   useEffect(() => {
     // Make an API GET request to retrieve the post by postId
-    axios.get(`${Domain()}/Posts/${postId}`)
+    axios.get(`${Domain()}/Posts/${postId}`,{
+      headers: {
+        'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+      }})
       .then(response => {
         // Update the state with the received data
         setPostData(response.data);

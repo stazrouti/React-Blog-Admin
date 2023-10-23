@@ -11,19 +11,27 @@ import Add from "./Admin/Posts/NewPost";
 import View from "./Admin/Posts/ViewPost";
 import UpdatePost from "./Admin/Posts/UpdatePost";
 import ViewMessage from "./Admin/Inbox/ViewMessage";
+import { AuthToken, Logout } from "./Api/Api";
+import NotFound from "./layouts/PageNotFound";
 
 
 
 
 function App() {
-  const isAuthenticated = localStorage.getItem('authToken');
+  /* const isAuthenticated = localStorage.getItem('authToken'); */
+  const isAuthenticated = sessionStorage.getItem('authToken');
+  /* const isAuthenticated = <AuthToken/>; */
   const Redirect =<Navigate to="/Login" />;
+/*   window.addEventListener("beforeunload", function (event) {
+    localStorage.removeItem('authToken');
+}); */
 
   return (
     //application routes
     <BrowserRouter>
       <Routes>
       <Route path="/Login" element={<Login />} />
+      <Route path="/Logout" element={<Logout />} />
         <Route path="/" element={isAuthenticated?<Dashboard/>:Redirect} />
 
         <Route path="/Admin" element={isAuthenticated ? <Dashboard/> : Redirect} />
@@ -40,10 +48,12 @@ function App() {
         <Route path="/Admin/Posts/:id" element={isAuthenticated ? <View/> : Redirect} />
         {/* manage Categories */}
         <Route path="/Admin/Categories" element={isAuthenticated ? <Categories/> : Redirect} />
+        {/* manage contact messages */}
         <Route path="/Admin/Inbox" element={isAuthenticated ? <Inbox/> : Redirect} />
         <Route path="/Admin/Inbox/:id" element={isAuthenticated ? <ViewMessage/> : Redirect} />
-
+        {/* manage users Accounts */}
         <Route path="/Admin/Accounts" element={isAuthenticated ? <Accounts/> : Redirect} />
+        <Route path="*" element={<NotFound/>} />
       
         {/* {isAuthenticated ? <ProtectedRoutes/>:<Route path="/Login" element={<Login />} />} */}
 {/*         <Route path="/Login" element={<Login />} />

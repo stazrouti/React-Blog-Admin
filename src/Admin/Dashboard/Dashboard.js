@@ -42,6 +42,7 @@ function Dashboard() {
     MonthlyVisits: [],
     MonthlyPosts: [],
   });
+  console.log(AuthToken())
 
   useEffect(() => {
     /* const authToken = localStorage.getItem('authToken'); */

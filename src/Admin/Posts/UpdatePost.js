@@ -40,7 +40,10 @@ function Getpost() {
           //setLoading(false);
           //get all categories
           axios
-          .get(`http://127.0.0.1:8000/api/Categories`)
+          .get(`http://127.0.0.1:8000/api/Categories`,{
+            headers: {
+              'Authorization': 'Bearer ' + AuthToken(), // Include the token here
+            }})
           .then((categoryResponse) => {
             // Handle the category data here, for example:
             const categoriesData = categoryResponse.data;

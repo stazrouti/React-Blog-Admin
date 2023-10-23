@@ -3,10 +3,11 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Use useNavigate for React Router v6
 
 import Domain from "../Api/Api";
+import AdminName from "../Api/Api";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin@gmail.com");
+  const [password, setPassword] = useState("admin");
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // Use useNavigate for React Router v6
 
@@ -17,14 +18,19 @@ function Login() {
       const response = await axios.post(`${Domain()}/Login`, {
         email,
         password,
-      });
+      }); 
       const authToken = response.data.token;
 
       // Store the token in localStorage
-      localStorage.setItem('authToken', authToken);
+      /* localStorage.setItem('authToken', authToken); */
+      sessionStorage.setItem('authToken', authToken);
+      sessionStorage.setItem('AdminName', response.data.admin_name);
+      
       
       // Use the `navigate` function to perform navigation
-      navigate('/Admin');
+      /* navigate('/Admin'); */
+      window.location.href = "http://localhost:3000/Admin";
+
 
       // Handle a successful login response here
       console.log("Login successful:", response.data.message);
