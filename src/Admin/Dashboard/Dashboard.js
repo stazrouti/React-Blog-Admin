@@ -7,6 +7,7 @@ import { faFileAlt, faComments, faHeart, faEye, faUserCheck, faUser, faFolder } 
 import { Line } from 'react-chartjs-2';
 import { CategoryScale } from "chart.js"; // Import the CategoryScale
 import Chart from 'chart.js/auto';
+import Loading from '../../layouts/Loading';
 
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -31,6 +32,7 @@ function AnalyticsCard({ title, value, icon }) {
 /* some changes */
 /* the main function that display dashbord data */
 function Dashboard() {
+  const [isLoading,setLoading]=useState(false);
   const [dashboardData, setDashboardData] = useState({
     TotalPosts: 0,
     TotalComments: 0,
@@ -54,6 +56,7 @@ function Dashboard() {
       .then(response => {
         // Update the state with the received data
         setDashboardData(response.data);
+        setLoading(true);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -61,6 +64,7 @@ function Dashboard() {
   }, []);
   const dashboardContent =
     <>
+    {isLoading ?(<>
       <div className="container mx-auto mt-8 px-10">
         <div className="max-w-screen-lg">
           <div className="flex flex-wrap justify-center gap-4">
@@ -75,6 +79,8 @@ function Dashboard() {
         </div>
       </div>
       <Analytics Visits={dashboardData.MonthlyVisits} Posts={dashboardData.MonthlyPosts} Comments={dashboardData.MonthlyComments} Likes={dashboardData.MonthlyLikes}/>
+    </>):(<Loading/>)
+}
     </>;
   return (
     <AdminLayout Content={dashboardContent} />

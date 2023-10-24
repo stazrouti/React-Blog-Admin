@@ -17,10 +17,11 @@ import NotFound from "./layouts/PageNotFound";
 
 
 
+
 function App() {
   /* const isAuthenticated = localStorage.getItem('authToken'); */
-  const isAuthenticated = sessionStorage.getItem('authToken');
-  /* const isAuthenticated = <AuthToken/>; */
+  /* const isAuthenticated = sessionStorage.getItem('authToken'); */
+  const isAuthenticated = <AuthToken/>;
   const Redirect =<Navigate to="/Login" />;
 /*   window.addEventListener("beforeunload", function (event) {
     localStorage.removeItem('authToken');
