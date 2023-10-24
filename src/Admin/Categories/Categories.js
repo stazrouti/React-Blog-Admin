@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
+import Loading from '../../layouts/Loading';
 import Domain from '../../Api/Api';
 import { AuthToken } from '../../Api/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -218,7 +219,11 @@ function Categories() {
 
   
 
-  const CategoriesContent = (
+  const CategoriesContent = (<>
+  {loading ? 
+      //loading style
+      <Loading/>
+ :(
     <div
       style={{ width: '900px' }}
       className="shadow-md px-1 space-x-8 mt-2 pt-2 pb-2 mb-2 justify-center gap-9 rounded-lg ml-10 bg-white"
@@ -231,13 +236,6 @@ function Categories() {
           New category
         </div>
       </div>
-  {loading ? 
-      //loading style
-      <p>  <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-    
-      </svg>
-      Processing...
-    </p> :(
       <table className="min-w-full divide-y divide-gray-200">
   <thead>
     <tr>
@@ -275,10 +273,10 @@ function Categories() {
       </tr>
     ))}
   </tbody>
-</table>
-)}
-
-    </div>
+  </table>
+  </div>
+  )}
+</>
   );
 
   return <AdminLayout Content={CategoriesContent} />;

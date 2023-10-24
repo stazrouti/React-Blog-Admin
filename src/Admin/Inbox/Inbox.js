@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Navigate,useNavigate } from 'react-router-dom';
+import Loading from '../../layouts/Loading';
 
 function ContactMessage({ message, onDelete }) {
   const [deleting, setDeleting] = useState(false);
@@ -155,9 +156,12 @@ function Inbox() {
     const updatedMessages = messages.filter((message) => message.id !== messageId);
     setMessages(updatedMessages);
   };
-
+  
   return (
     <AdminLayout>
+    {loading ? (
+      <Loading/>
+    ) : (
       <div className="container mx-auto mt-8 px-10 bg-white ml-5 pb-4 mb-5 rounded">
         <div className="max-w-screen-lg">
           <h1 className="text-3xl font-bold mb-4">Contact Messages</h1>
@@ -185,17 +189,14 @@ function Inbox() {
               </tr>
             </thead>
             <tbody className="text-center">
-              {loading ? (
-                <p>Loading contact messages...</p>
-              ) : (
-                messages.map((message) => (
+                {messages.map((message) => (
                   <ContactMessage key={message.id} message={message} onDelete={deleteMessage} />
-                ))
-              )}
+                ))}
             </tbody>
           </table>
         </div>
       </div>
+              )}
       {/* <Route path="/Inbox/:id" render={({ match }) => <ViewMessage message={messages.find((msg) => msg.id === parseInt(match.params.id))} />} /> */}
     </AdminLayout>
   );

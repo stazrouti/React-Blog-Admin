@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import Domain from "../../Api/Api";
 import { AuthToken } from "../../Api/Api";
+import Loading from "../../layouts/Loading";
 
 function Getpost() {
     // Get the value of the "id" parameter from the URL
@@ -115,15 +116,12 @@ function Getpost() {
 
     }
   
-return (
-    <div className=" shadow-md flex-row px-1  items-center mt-5 pl-5 pt-2 pb-2 mb-2 justify-center  rounded-lg ml-10 bg-white">
+return (<>
       {loading ? (
-        <p>  <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
-        
-      </svg>
-      Processing...
-    </p> // Show a loading indicator or message
+        // Show a loading indicator or message
+      <Loading/>
       ) : (
+        <div className=" shadow-md flex-row px-1  items-center mt-5 pl-5 pt-2 pb-2 mb-2 justify-center  rounded-lg ml-10 bg-white">
         <form onSubmit={handleUpdate}>
           <h1 className="mt-2 mb-2 text-2xl font-semibold">Title : <input type="text" name="title" className="border-current" value={formData.title} onChange={handleChange}/></h1>
           <div className="w-2/3">
@@ -189,9 +187,10 @@ return (
             Update
         </button>
         </form>
+    </div>
       )}
 
-    </div>
+    </>
     );
   }
 function UpdatePost()

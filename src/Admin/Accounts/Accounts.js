@@ -6,6 +6,7 @@ import { AuthToken } from '../../Api/Api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPen, faEye, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import Loading from '../../layouts/Loading';
 
 function UserAccountManager({ user, onUpdate, onDelete }) {
   const [updating, setUpdating] = useState(false);
@@ -186,9 +187,13 @@ function Accounts() {
     const updatedUsers = usersData.filter(user => user.id !== userId);
     setUsersData(updatedUsers);
   };
-
+  
   return (
     <AdminLayout>
+    {loading ? (
+      
+      <Loading/>
+    ) : (
       <div className="container mx-auto mt-8 px-10 bg-white ml-5 pb-4">
         <div className="max-w-screen-lg">
           <h1 className="text-3xl font-bold mb-4">User Accounts</h1>
@@ -205,10 +210,7 @@ function Accounts() {
               </tr>
             </thead>
             <tbody className='text-center'>
-              {loading ? (
-                <p>Loading user data...</p>
-              ) : (
-                usersData.map(user => (
+                {usersData.map(user => (
                   <UserAccountManager
                     key={user.id}
                     user={user}
@@ -216,11 +218,12 @@ function Accounts() {
                     onDelete={deleteUser}
                   />
                 ))
-              )}
+                }
             </tbody>
           </table>
         </div>
       </div>
+              )}
     </AdminLayout>
   );
 }

@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Loading from "../../layouts/Loading";
 
 
 
@@ -185,12 +186,8 @@ function Posts() {
 
     const PostsContent = (<div>
       {loading ? (
-        //loading style
-        <p>  <svg class="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24">
         
-      </svg>
-      Processing...
-    </p> // Show a loading indicator or message
+    <Loading/>
     ) : (
       <>
       <div className="flex flex-row px-10 space-x-8 items-center pt-8 justify-center gap-3 ">
