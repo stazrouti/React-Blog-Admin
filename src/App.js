@@ -33,28 +33,28 @@ function App() {
       <Routes>
       <Route path="/Login" element={<Login />} />
       <Route path="/Logout" element={<Logout />} />
-        <Route path="/" element={isAuthenticated?<Dashboard/>:Redirect} />
+      <Route path="/" element={isAuthenticated?<Dashboard/>:Redirect} />
 
-        <Route path="/Admin" element={isAuthenticated ? <Dashboard/> : Redirect} />
-        {/* Dashboard url */}
-        <Route path="/Admin/Dashboard" element={isAuthenticated ? <Dashboard/> : Redirect}/>
-        
-        {/* get all posts */}
-        <Route path="/Admin/Posts" element={isAuthenticated ? <Posts/> : Redirect} />
-        {/* Add a new post */}
-        <Route path="/Admin/Post/New" element={isAuthenticated ? <Add/> : Redirect} />
-        {/* Update a  post */}
-        <Route path="/Admin/Posts/Update/:id" element={isAuthenticated ? <UpdatePost/> : Redirect} />
-        {/* show post details */}
-        <Route path="/Admin/Posts/:id" element={isAuthenticated ? <View/> : Redirect} />
-        {/* manage Categories */}
-        <Route path="/Admin/Categories" element={isAuthenticated ? <Categories/> : Redirect} />
-        {/* manage contact messages */}
-        <Route path="/Admin/Inbox" element={isAuthenticated ? <Inbox/> : Redirect} />
-        <Route path="/Admin/Inbox/:id" element={isAuthenticated ? <ViewMessage/> : Redirect} />
-        {/* manage users Accounts */}
-        <Route path="/Admin/Accounts" element={isAuthenticated ? <Accounts/> : Redirect} />
-        <Route path="*" element={<NotFound/>} />
+      <Route path="/Admin" element={isAuthenticated ? <Dashboard/> : Redirect} />
+      {/* Dashboard url */}
+      <Route path="/Admin/Dashboard" element={isAuthenticated ? <Dashboard/> : Redirect}/>
+      
+      {/* get all posts */}
+      <Route path="/Admin/Posts" element={isAuthenticated ? <Posts/> : Redirect} />
+      {/* Add a new post */}
+      <Route path="/Admin/Post/New" element={isAuthenticated ? <Add/> : Redirect} />
+      {/* Update a  post */}
+      <Route path="/Admin/Posts/Update/:id" element={isAuthenticated ? <UpdatePost/> : Redirect} />
+      {/* show post details */}
+      <Route path="/Admin/Posts/:id" element={isAuthenticated ? <View/> : Redirect} />
+      {/* manage Categories */}
+      <Route path="/Admin/Categories" element={isAuthenticated ? <Categories/> : Redirect} />
+      {/* manage contact messages */}
+      <Route path="/Admin/Inbox" element={isAuthenticated ? <Inbox/> : Redirect} />
+      <Route path="/Admin/Inbox/:id" element={isAuthenticated ? <ViewMessage/> : Redirect} />
+      {/* manage users Accounts */}
+      <Route path="/Admin/Accounts" element={isAuthenticated ? <Accounts/> : Redirect} />
+      <Route path="*" element={<NotFound/>} />
       
         {/* {isAuthenticated ? <ProtectedRoutes/>:<Route path="/Login" element={<Login />} />} */}
 {/*         <Route path="/Login" element={<Login />} />
