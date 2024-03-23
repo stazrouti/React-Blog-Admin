@@ -1,70 +1,218 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Blog Dashboard website
 
-In the project directory, you can run:
+<a name="readme-top"></a>
+<div align="center">
+  <br/>
 
-### `npm start`
+  <h3><b>Blog Dashboard README</b></h3>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+</div>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+# 📗 Table of Contents
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+    - [Screenshots](#Screenshots)
+- [💻 Getting Started](#getting-started)
+  - [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Usage](#usage)
+- [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
+- [📝 License](#license)
 
-### `npm run build`
+# 📖 Blog   <a name="about-project"></a>
+*[Blog]* Dynamic and user-friendly blog Dashboard, where we've harnessed the power of Laravel for back-end features and React for front-end Dashboard, all wrapped in a sleek and modern design courtesy of Tailwind CSS.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### Tech Stack <a name="tech-stack"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="#">React  </a></li>
+    <li><a href="#">Tailwindcss </a></li>
+    <li><a href="#">sweetalert2 </a></li>
+    <li><a href="#">chart.js </a></li>
+    <li><a href="#">Axios </a></li>
+    
+  </ul>
+    <summary>Server</summary>
+  <ul>
+    <li><a href="#">Laravel  </a></li>
+    <li><a href="#">Mysql </a></li>
+    
+  </ul>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+</details>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Key Features <a name="key-features"></a>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+- *[Admin Sign in ]*
+- *[Display graph for users analytic]*
+- *[Display users,posts Data]*
+- *[Display posts]*
+- *[Add new posts]*
+- *[Update posts]*
+- *[Delete posts]*
+- *[Posts Filter]*
+- *[Display category]*
+- *[Add new category]*
+- *[Update category]*
+- *[Delete category]*
+- *[Email Inbox]*
+- *[Manage users accounts]*
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Code Splitting
+### Key Features <a name="Screenshots"></a>
+<h2>Screenshots of the Project 📸</h2>
+<br>
+<h3 align='center'>Login Page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/admin login.png'/>
+</div>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<h3 align='center'>Dashboard Page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/dashboard.jpeg'/>
+</div>
 
-### Analyzing the Bundle Size
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<h3 align='center'>Posts Page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/posts.jpeg'/>
+</div>
 
-### Making a Progressive Web App
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<h3 align='center'>New post Page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/new post.jpeg'/>
+</div>
 
-### Advanced Configuration
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<h3 align='center'>Post details page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/post info.jpeg'/>
+</div>
 
-### Deployment
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+<h3 align='center'>Update post page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/update posts info.jpeg'/>
+</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<h3 align='center'>Categories page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/categories.jpeg'/>
+</div>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<h3 align='center'>Accounts page 🏡</h3>
+<div align='center'>
+<img src='https://raw.githubusercontent.com/stazrouti/React-Blog-Admin/main/public/Blog-img/Accounts.jpeg'/>
+</div>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+- In order to run this project you need:
+
+- [git](https://git-scm.com/downloads): A tool for managing source code
+- [Visual Studio Code](https://code.visualstudio.com/): A source code editor
+- [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer): A simple web server utility for Visual Studio Code
+
+### Setup
+
+Clone this repository to your desired folder:
+https://github.com/stazrouti/React-Blog-Admin.git
+ Example commands:
+
+sh
+  cd my-folder
+https://github.com/stazrouti/React-Blog-Admin.git
+
+
+### Install
+
+Install this project with:
+
+` cd React-Blog-Admin
+  - Run npm install v
+
+
+
+
+
+### Run Project
+To run this project
+
+```shell
+ npm start
+```
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### 👥 Authors <a name="authors"></a>
+
+👤 *Author1*
+
+- GitHub: [@stazrouti](https://github.com/stazrouti)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## ⭐️ Show your support <a name="support"></a>
+
+If you like this project please give it a start and share it with your friends. 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 📝 License <a name="license"></a>
+
+This project is [MIT](./MIT.md) licensed.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
