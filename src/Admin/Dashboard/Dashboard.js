@@ -115,7 +115,7 @@ function Analytics({ Visits, Posts, Comments }) {
     }
   });
 
-  const chartData = {
+  const VisitsChart = {
     labels: orderedMonths,
     datasets: [
       {
@@ -125,13 +125,46 @@ function Analytics({ Visits, Posts, Comments }) {
         borderWidth: 2,
         fill: false,
       },
+      /*       {
+              label: 'Posts',
+              data: postCounts,
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 2,
+              fill: false,
+            },
+            {
+              label: 'Comments',
+              data: commentCounts,
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 2,
+              fill: false,
+            }, */
+    ],
+  };
+  const PostsChart = {
+    labels: orderedMonths,
+    datasets: [
+
       {
         label: 'Posts',
         data: postCounts,
         borderColor: 'rgba(255, 99, 132, 1)',
         borderWidth: 2,
         fill: false,
-      },
+      },/* 
+      {
+        label: 'Comments',
+        data: commentCounts,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 2,
+        fill: false,
+      }, */
+    ],
+  };
+  const CommentsChart = {
+    labels: orderedMonths,
+    datasets: [
+
       {
         label: 'Comments',
         data: commentCounts,
@@ -160,10 +193,20 @@ function Analytics({ Visits, Posts, Comments }) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 mt-5 mb-5">
-      <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
-      <Line data={chartData} options={chartOptions} />
-    </div>
+    <>
+      <div className="bg-white rounded-lg shadow-md my-5 p-2">
+        <h2 className="text-2xl font-semibold mb-4">Visits Chart</h2>
+        <Line data={VisitsChart} options={chartOptions} />
+      </div>
+      <div className="bg-white rounded-lg shadow-md my-5 p-2">
+        <h2 className="text-2xl font-semibold mb-4">Posts Chart</h2>
+        <Line data={PostsChart} options={chartOptions} />
+      </div>
+      <div className="bg-white rounded-lg shadow-md my-5 p-2">
+        <h2 className="text-2xl font-semibold mb-4">CommentsChart</h2>
+        <Line data={CommentsChart} options={chartOptions} />
+      </div>
+    </>
   );
 }
 
