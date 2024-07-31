@@ -1,41 +1,34 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faFileAlt, faFolder, faInbox, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function SideBar() {
+  const location = useLocation();
+
+  const links = [
+    { to: "/Admin/Dashboard", icon: faHome, label: "Dashboard" },
+    { to: "/Admin/Posts", icon: faFileAlt, label: "Posts" },
+    { to: "/Admin/Categories", icon: faFolder, label: "Categories" },
+    { to: "/Admin/Inbox", icon: faInbox, label: "Inbox" },
+    { to: "/Admin/Accounts", icon: faUser, label: "Accounts" },
+  ];
+
   return (
-    <nav className="border bg-white h-screen p-4">
-      {/* link to dashboard */}
-      <Link to="/Admin/Dashboard">
-        <div className="text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2">
-          <FontAwesomeIcon icon={faHome} /> Dashboard
-        </div>
-      </Link>
-      {/* link to posts */}
-      <Link to="/Admin/Posts">
-        <div className="text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2">
-          <FontAwesomeIcon icon={faFileAlt} /> Posts
-        </div>
-      </Link>
-    {/* link to Categories */}
-      <Link to="/Admin/Categories">
-        <div className="text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2">
-          <FontAwesomeIcon icon={faFolder} /> Categories
-        </div>
-      </Link>
-      {/* link to Inbox */}
-      <Link to="/Admin/Inbox">
-        <div className="text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2">
-          <FontAwesomeIcon icon={faInbox} /> Inbox
-        </div>
-      </Link>
-    {/* link to Account */}
-      <Link to="/Admin/Accounts">
-        <div className="text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2">
-          <FontAwesomeIcon icon={faUser} /> Accounts
-        </div>
-      </Link>
+    <nav className="border-r bg-white h-screen p-4 w-64">
+      {links.map((link) => (
+        <Link key={link.to} to={link.to} aria-label={link.label}>
+          <div
+            className={`flex items-center text-black-300 hover:text-blue-500 cursor-pointer rounded-md p-2 mb-2 ${
+              location.pathname === link.to ||
+              (location.pathname === "/Admin" && link.to === "/Admin/Dashboard") ? "bg-gray-200" : ""
+            }`}
+          >
+            <FontAwesomeIcon icon={link.icon} className="mr-3" />
+            <span>{link.label}</span>
+          </div>
+        </Link>
+      ))}
     </nav>
   );
 }
