@@ -25,7 +25,7 @@ function SideBar() {
               (location.pathname === "/Admin" && link.to === "/Admin/Dashboard") ? "bg-gray-200" : ""
             }`}
           >
-            <FontAwesomeIcon icon={link.icon} className="mr-3" />
+            <FontAwesomeIcon icon={link.icon} className="mr-3 text-indigo-500" />
             <span>{link.label}</span>
           </div>
         </Link>
