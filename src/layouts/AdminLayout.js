@@ -1,24 +1,23 @@
+import React from "react";
 import SideBar from "./SideBar";
 import Nav from "./Nav";
-function AdminLayout({ Content ,children }){
-    return (
-        <div>
-            <Nav/>
-            <div className="flex">
-                {/* this for the side bar on the left */}
-                {/* <div className="w-1/5 "  style={{height: '87vh'}}> */}
-                <div className="w-1/5 h-screen">
-                    <SideBar />
-                </div>
-                {/* this is for the content that will be updated with link */}
-                    
-                <div>
-                    <main className="w-100 overflow-x-hidden overflow-y-auto ">
-                        {Content || children}
-                    </main>
-                </div>
-            </div>
-        </div>
-    );
+
+function AdminLayout({ Content, children }) {
+  return (
+    <div className="flex flex-col">
+      <Nav />
+      <div className="flex flex-1">
+        {/* Sidebar on the left */}
+        <aside className="w-64 h-full border-r bg-white sticky top-0">
+          <SideBar />
+        </aside>
+        {/* Content area */}
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-4">
+          {Content || children}
+        </main>
+      </div>
+    </div>
+  );
 }
+
 export default AdminLayout;
