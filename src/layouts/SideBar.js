@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faFileAlt, faFolder, faInbox, faUser, faCog } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faFileAlt, faFolder, faInbox, faUser, faCog, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useLocation } from "react-router-dom";
 
 function SideBar() {
@@ -13,6 +13,7 @@ function SideBar() {
     { to: "/Admin/Inbox", icon: faInbox, label: "Inbox" },
     { to: "/Admin/Accounts", icon: faUser, label: "Accounts" },
     { to: "/Admin/Settings", icon: faCog, label: "Settings" },
+    { to: "/Logout", icon: faSignOutAlt, label: "Logout" },
   ];
 
   return (
