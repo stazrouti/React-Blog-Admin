@@ -160,23 +160,6 @@ function Analytics({ Visits, Posts, Comments }) {
   };
 
 
-  // You will need to replace "item.visit_count2" and the color accordingly with your second dataset.
-
-
-
-
-  /*   const chartData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','July','Oct','Nov','Dec'],
-      datasets: [
-        {
-          label: 'Views',
-          data: [MonthlyVisits[0].visit_count, 29, 3, 5, 2, 3],
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 2,
-          fill: false,
-        },
-      ],
-    }; */
 
   // Explicitly specify the scale as CategoryScale
   const scales = {
@@ -190,30 +173,9 @@ function Analytics({ Visits, Posts, Comments }) {
       <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
       {/* Display a Line Chart with specified scales */}
       <Line data={chartData} options={{ scales }} />
-      {/* <Line data={chartData2} options={{ scales }} /> */}
     </div>
   );
 }
 
-/* function Dashboard() {
-  const dashboardContent =
-    <>
-      <div className="container mx-auto mt-8 px-10">
-        <div className="max-w-screen-lg">
-          <div className="flex flex-wrap justify-center gap-4">
-            <AnalyticsCard title="Total Posts" value="256" icon={faFileAlt} />
-            <AnalyticsCard title="Total Comments" value="489" icon={faComments} />
-            <AnalyticsCard title="Likes Received" value="732" icon={faHeart} />
-            <AnalyticsCard title="Views" value="1205" icon={faEye} />
-          </div>
-        </div>
-      </div>
-      <Analytics />
-    </>;
-
-  return (
-    <AdminLayout Content={dashboardContent} />
-  );
-} */
 
 export default Dashboard;
