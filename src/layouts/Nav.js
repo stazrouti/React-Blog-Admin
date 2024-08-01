@@ -14,9 +14,9 @@ return(
                 <p type="text" placeholder="Admin name" className="bg-white p-2 rounded" ><AdminName/></p>
                 <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg" className="w-10 h-10 rounded" alt="" />
                 <p className="bg-white p-2 rounded hover:cursor-pointer">
-                    <Link to="/Logout">
+{/*                     <Link to="/Logout">
                         <FontAwesomeIcon icon={faArrowRightFromBracket} />
-                    </Link>
+                    </Link> */}
                 </p>
             </div>
         </div>
