@@ -28,7 +28,7 @@ function Dashboard() {
   const [isLoading, setLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState({
     TotalPosts: 0,
-    TotalComments: 0,
+    TotalComment: 0,
     TotalLikes: 0,
     TotalVisits: 0,
     TotalCategories: 0,
@@ -60,7 +60,7 @@ function Dashboard() {
     <div className="container mx-auto mt-8 px-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <AnalyticsCard title="Total Posts" value={dashboardData.TotalPosts} icon={faFileAlt} />
-        <AnalyticsCard title="Total Comments" value={dashboardData.TotalCommen} icon={faComments} />
+        <AnalyticsCard title="Total Comments" value={dashboardData.TotalComment} icon={faComments} />
         <AnalyticsCard title="Likes Received" value={dashboardData.TotalLikes} icon={faHeart} />
         <AnalyticsCard title="Total Visits" value={dashboardData.TotalVisits} icon={faEye} />
         <AnalyticsCard title="Total Categories" value={dashboardData.TotalCategories} icon={faFolder} />
@@ -99,7 +99,7 @@ function Analytics({ Visits, Posts, Comments }) {
   ];
 
   const postCounts = new Array(12).fill(0);
-  const commentCounts = new Array(12).fill(0);
+  const TotalComment = new Array(12).fill(0);
 
   Posts.forEach(item => {
     const monthIndex = orderedMonths.indexOf(item.month);
@@ -111,7 +111,7 @@ function Analytics({ Visits, Posts, Comments }) {
   Comments.forEach(item => {
     const monthIndex = orderedMonths.indexOf(item.month);
     if (monthIndex !== -1) {
-      commentCounts[monthIndex] = item.comment_count;
+      TotalComment[monthIndex] = item.comment_count;
     }
   });
 
@@ -134,7 +134,7 @@ function Analytics({ Visits, Posts, Comments }) {
             },
             {
               label: 'Comments',
-              data: commentCounts,
+              data: TotalComment,
               borderColor: 'rgba(54, 162, 235, 1)',
               borderWidth: 2,
               fill: false,
@@ -154,7 +154,7 @@ function Analytics({ Visits, Posts, Comments }) {
       },/* 
       {
         label: 'Comments',
-        data: commentCounts,
+        data: TotalComment,
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 2,
         fill: false,
@@ -167,7 +167,7 @@ function Analytics({ Visits, Posts, Comments }) {
 
       {
         label: 'Comments',
-        data: commentCounts,
+        data: TotalComment,
         borderColor: 'rgba(54, 162, 235, 1)',
         borderWidth: 2,
         fill: false,
