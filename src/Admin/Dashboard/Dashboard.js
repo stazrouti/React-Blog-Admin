@@ -121,7 +121,16 @@ function Analytics({ Visits, Posts, Comments }) {
       {
         label: 'Visits',
         data: Visits.map(item => item.visit_count),
+        borderColor: 'rgba(255, 206, 86, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Visits',
+        type: 'bar',
+        data: Visits.map(item => item.visit_count),
         borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 2,
         fill: false,
       },
@@ -148,10 +157,20 @@ function Analytics({ Visits, Posts, Comments }) {
       {
         label: 'Posts',
         data: postCounts,
-        borderColor: 'rgba(255, 99, 132, 1)',
+        borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 2,
         fill: false,
-      },/* 
+      },
+      {
+        label: 'Posts',
+        type: 'bar',
+        data: postCounts,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 05)',
+        borderWidth: 2,
+        fill: false,
+      },
+      /* 
       {
         label: 'Comments',
         data: TotalComment,
@@ -168,7 +187,16 @@ function Analytics({ Visits, Posts, Comments }) {
       {
         label: 'Comments',
         data: TotalComment,
-        borderColor: 'rgba(54, 162, 235, 1)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+      {
+        label: 'Comments',
+        type: 'bar',
+        data: TotalComment,
+      borderColor: 'rgba(54, 162, 235, 1)',
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
         borderWidth: 2,
         fill: false,
       },
