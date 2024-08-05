@@ -121,7 +121,7 @@ function Analytics({ Visits, Posts, Comments }) {
       {
         label: 'Visits',
         data: Visits.map(item => item.visit_count),
-        borderColor: 'rgba(255, 206, 86, 1)',
+        borderColor: 'rgba(255, 159, 0, 1)',  // Darker yellow
         borderWidth: 2,
         fill: false,
       },
@@ -134,30 +134,16 @@ function Analytics({ Visits, Posts, Comments }) {
         borderWidth: 2,
         fill: false,
       },
-      /*       {
-              label: 'Posts',
-              data: postCounts,
-              borderColor: 'rgba(255, 99, 132, 1)',
-              borderWidth: 2,
-              fill: false,
-            },
-            {
-              label: 'Comments',
-              data: TotalComment,
-              borderColor: 'rgba(54, 162, 235, 1)',
-              borderWidth: 2,
-              fill: false,
-            }, */
     ],
   };
+  
   const PostsChart = {
     labels: orderedMonths,
     datasets: [
-
       {
         label: 'Posts',
         data: postCounts,
-        borderColor: 'rgba(75, 192, 192, 1)',
+        borderColor: 'rgba(54, 162, 235, 1)',  // Darker blue
         borderWidth: 2,
         fill: false,
       },
@@ -166,28 +152,20 @@ function Analytics({ Visits, Posts, Comments }) {
         type: 'bar',
         data: postCounts,
         borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 05)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
         borderWidth: 2,
         fill: false,
       },
-      /* 
-      {
-        label: 'Comments',
-        data: TotalComment,
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 2,
-        fill: false,
-      }, */
     ],
   };
+  
   const CommentsChart = {
     labels: orderedMonths,
     datasets: [
-
       {
         label: 'Comments',
         data: TotalComment,
-        borderColor: 'rgba(255, 159, 64, 1)',
+        borderColor: 'rgba(153, 102, 255, 1)',  // Darker purple
         borderWidth: 2,
         fill: false,
       },
@@ -195,13 +173,14 @@ function Analytics({ Visits, Posts, Comments }) {
         label: 'Comments',
         type: 'bar',
         data: TotalComment,
-      borderColor: 'rgba(54, 162, 235, 1)',
-      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.5)',
         borderWidth: 2,
         fill: false,
       },
     ],
   };
+  
 
   const chartOptions = {
     scales: {
@@ -231,7 +210,7 @@ function Analytics({ Visits, Posts, Comments }) {
         <Line data={PostsChart} options={chartOptions} />
       </div>
       <div className="bg-white rounded-lg shadow-md my-5 p-2">
-        <h2 className="text-2xl font-semibold mb-4">CommentsChart</h2>
+        <h2 className="text-2xl font-semibold mb-4">Comments Chart</h2>
         <Line data={CommentsChart} options={chartOptions} />
       </div>
     </>
